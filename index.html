@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="./assets/lib/layui/css/layui.css">
     <link rel="stylesheet" href="./assets/fonts/iconfont.css">
     <link rel="stylesheet" href="./assets/css/index.css">
+      <!-- 导入layui的js文件 -->
+      <script src="./assets/lib/layui/layui.all.js"></script>
+      <!-- 导入jQuery.js -->
+      <script src="./assets/lib/jquery.js"></script>
+  
+      <!-- 导入ajaxPrefilter.js -->
+      <script src="./assets/js/baseAPI.js"></script>
+  
+      <!-- 导入主页js文件 -->
+      <script src="./assets/js/index.js">
+  
+      </script>
 </head>
 <body>
     <div class="layui-layout layui-layout-admin">
@@ -23,13 +35,13 @@
               个人中心
             </a>
             <dl class="layui-nav-child">
-              <dd><a href="">基本资料</a></dd>
-              <dd><a href="">更换头像</a></dd>
-              <dd><a href="">重置密码</a></dd>
+              <dd><a href="./user/user.info.html" target="fm">基本资料</a></dd>
+              <dd><a href="./user/user.avatar.html" target="fm">更换头像</a></dd>
+              <dd><a href="./user/user.pwd.html" target="fm">重置密码</a></dd>
             </dl>
           </li>
-          <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
-            <a href="javascript:;" id="btnLogout">
+          <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect id="btnLogout">
+            <a href="javascript:;">
                 <span class="iconfont icon-tuichu"></span>
               <i style="text-decoration: none;">退出</i>
             </a>
@@ -62,9 +74,9 @@
             <li class="layui-nav-item">
               <a href="javascript:;"><span class="iconfont icon-user"></span>个人中心</a>
               <dl class="layui-nav-child">
-                <dd><a href="javascript:;"><i class="layui-icon layui-icon-app"></i> 基本资料</a></dd>
-                <dd><a href="javascript:;"><i class="layui-icon layui-icon-app"></i> 更换头像</a></dd>
-                <dd><a href="javascript:;"><i class="layui-icon layui-icon-app"></i> 重置密码</a></dd>
+                <dd><a href="./user/user.info.html" target="fm"><i class="layui-icon layui-icon-app"></i> 基本资料</a></dd>
+                <dd><a href="./user/user.avatar.html" target="fm"><i class="layui-icon layui-icon-app"></i> 更换头像</a></dd>
+                <dd><a href="./user/user.pwd.html" target="fm"><i class="layui-icon layui-icon-app"></i> 重置密码</a></dd>
               </dl>
             </li>
             
@@ -76,7 +88,7 @@
         <!-- 内容主体区域 -->
         
         <!-- iframe标签作为显示主题内容的载体 iframe标签一定要有name属性 -->
-        <!-- src属性指向以开始显示的地址 -->
+        <!-- src属性指向一开始显示的地址 以后通过js控制地址改变 -->
         <iframe src="./home/dashboard.html" name="fm" frameborder="0"></iframe>
       </div>
       

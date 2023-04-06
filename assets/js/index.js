@@ -1,50 +1,54 @@
-$(function(){
+
     //导入弹出框
-    let layer = layui.layer
+    
 
-    $.ajax({
-        method:'GET',
-        url:'/my/userinfo',
+    getUserInfo()
 
-        // 凡是my的api接口，都需要密码访问，也就是token
-        headers: {
-           Authorization: localStorage.getItem('token') || ''
-        },
-        success: function(res) {
-            console.log(res)
-            //如果没有找到登录信息则提示需要登陆
-            if(res.status !== 0) {
-                // layer.open({
-                //     content: '请先登录',
-                //     yes: function(){
-                //         localStorage.removeItem('token')
-                //       location.href='./login.html'
-                //     }
-                //   });  
-                layer.msg('未登录') 
-                return
+    function getUserInfo () {
+        $.ajax({
+            method:'GET',
+            url:'/my/userinfo',
+    
+            // 凡是my的api接口，都需要密码访问，也就是token
+            headers: {
+               Authorization: localStorage.getItem('token') || ''
+            },
+            success: function(res) {
+                
+                //如果没有找到登录信息则提示需要登陆
+                if(res.status !== 0) {
+                    // layer.open({
+                    //     content: '请先登录',
+                    //     yes: function(){
+                    //         localStorage.removeItem('token')
+                    //       location.href='./login.html'
+                    //     }
+                    //   });  
+                    layui/layer.msg('未登录') 
+                    return
+                }
+    
+                //如果找到了登录信息
+                render(res.data)
+            },
+    
+            //无论是否成功请求都会执行Complete
+            //因为每个界面都要验证是否要弹出，所以可以加入到ajaxPrefilter里
+        /*     complete: function(res) {
+                if(res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！'){
+                    //1. 强制清楚localStorage
+                    localStorage.removeItem('token')
+                    //2. 返回登陆界面
+                    location.href='./login.html'
+                }
             }
-
-            //如果找到了登录信息
-            render(res.data)
-        },
-
-        //无论是否成功请求都会执行Complete
-        //因为每个界面都要验证是否要弹出，所以可以加入到ajaxPrefilter里
-    /*     complete: function(res) {
-            if(res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！'){
-                //1. 强制清楚localStorage
-                localStorage.removeItem('token')
-                //2. 返回登陆界面
-                location.href='./login.html'
-            }
-        }
-    }) */
-    })
+        }) */
+        })
+    }
 
     
     //点击按钮退出功能
-    $('#btnLogout').on('click' , function(){
+ /*    $('#btnLogout').on('click' , function(){
         console.log('ok')
       
      layer.confirm('确认退出吗？', {icon: 3, title:'提示'}, function(index){
@@ -55,7 +59,21 @@ $(function(){
     location.href='./login.html'
     layer.close(index);
   });
-    })
+  console.log('ok')
+    }) */
+    $('#btnLogout').on('click', function() {
+        // 提示用户是否确认退出
+        layui.layer.confirm('确定退出登录?', { icon: 3, title: '提示' }, function(index) {
+          //do something
+          // 1. 清空本地存储中的 token
+          localStorage.removeItem('token')
+          // 2. 重新跳转到登录页面
+          location.href = '/login.html'
+    
+          // 关闭 confirm 询问框
+          layer.close(index)
+        })
+      })
 
 
     //定义一个渲染用户头像和昵称的函数
@@ -72,4 +90,4 @@ $(function(){
         }
         //3. 渲染用户名字
         $('#welcome').html(`欢迎&nbsp&nbsp${name}`)
-    }})
+    }
